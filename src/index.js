@@ -33,14 +33,6 @@ const bcrypt = require('bcryptjs');
 //      console.log(isMatch);
 // }
 
-const jwt = require('jsonwebtoken');
-
-const Myfunction = async (req,res)=>{
-    const token = jwt.sign({_id:'abc123'},"samarth");
-    // console.log(token);
-
-    const verify = jwt.verify(token,'samarth');
-    // console.log(verify)
-}
-
-Myfunction();
+const Task = require('../src/models/task.js');
+const User = require('../src/models/user.js');
+ 

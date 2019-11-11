@@ -2,7 +2,7 @@ const express = require("express");
 const Rare = require("../models/rare.js");
 const router = new express.Router();
 const bodyParser = require('body-parser')
-const {sendRareCustomer} = require("../emails/account.js");
+
 
 router.use(bodyParser.json());
 var urlencodedTrue = bodyParser.urlencoded({ extended: true });
