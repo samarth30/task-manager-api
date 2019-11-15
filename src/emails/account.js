@@ -1,4 +1,5 @@
 const sgMail = require('@sendgrid/mail');
+const twilio = require('twilio')('ACda89ec4cfdabcdacc2fcb3a131b26bf9','f185f7f49644fb75feb0ca58196d30f2');
 sgMail.setApiKey('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');
 
 const sendWelcomeEmail = (email,name)=>{
@@ -34,6 +35,14 @@ const sendRareCustomer = (name,number,phoneBrand,phoneModel,PhoneColor,PhoneDefe
               <h2>is booked we will try to contact with you as soon as possible on phone number : ${number}</h2>`
     })
 }
+
+twilio.messages
+  .create({
+     body: 'hello arpit we are from rare your order has been booked succesfully',
+     from: '+15859024102',
+     to: '+919896178450'
+   })
+  .then(message => console.log(message.sid));
 
 module.exports={
     sendWelcomeEmail,

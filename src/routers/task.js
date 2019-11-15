@@ -3,6 +3,11 @@ const Task = require("../models/task.js");
 const router = new express.Router();
 const auth = require('../middleware/auth.js');
 
+const bodyParser = require('body-parser')
+
+router.use(bodyParser.json());
+var urlencodedTrue = bodyParser.urlencoded({ extended: true });
+router.use(urlencodedTrue);
 
 router.post('/tasks', auth,async (req,res)=>{
 
@@ -20,11 +25,30 @@ router.post('/tasks', auth,async (req,res)=>{
 })
 
 router.get('/tasks',auth,async (req,res)=>{
+    const match = {};
+    const sort = {};
+
+    if(req.query.sortBy){
+      const parts = req.query.sortBy.split(":");
+      sort[parts[0]] = parts[1] === 'desc' ? -1:1;
+    }
+
+    if(req.query.completed){
+        match.completed = req.query.completed === 'true';
+    }
     
     try{
-        const tasks =await Task.find({owner: req.user._id});
-        // await req.user.populate('tasks').execPopulate();
-        res.status(201).send(tasks);
+        // const tasks =await Task.find({owner: req.user._id});
+        await req.user.populate({
+            path:'tasks',
+            match,
+            options:{
+                limit: parseInt(req.query.limit),
+                skip:parseInt(req.query.skip),
+                sort
+            }
+        }).execPopulate();
+        res.status(201).send(req.user.tasks);
     }catch(e){
         res.status(500).send();
     }

@@ -32,7 +32,3 @@ const bcrypt = require('bcryptjs');
 //      const isMatch = await bcrypt.compare(password,hashedPassword);
 //      console.log(isMatch);
 // }
-
-const Task = require('../src/models/task.js');
-const User = require('../src/models/user.js');
- 
