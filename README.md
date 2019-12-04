@@ -3,3 +3,5 @@ the api are localhost:3000/user ,/task you can create user ,login ,delete user,c
 
 through this you can CREATE , DELETE , READ , UPDATE AND MANY MORE THINGS.
 
+```
+install this by npm install
